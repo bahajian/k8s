@@ -40,17 +40,18 @@ kind --version
 
 
 ```
-
+:smile:
 ### 01- Create Kubernetes Cluster using Kind:
 
 ```
 kind create cluster --name my-cluster
 ```
 ```
-To use a custom node image for the cluster, use the --image option:
-
 kind create cluster --image=[image]
 ```
+
+To use a custom node image for the cluster, use the --image option:
+
 ```
 kind create cluster --name=nodes-test --config=workerNodes.yaml
 ```
