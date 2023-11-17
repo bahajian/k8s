@@ -20,6 +20,15 @@ echo \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
+
+
+
+sudo install -m 0755 -d /etc/apk/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apk/keyrings/docker.gpg
+sudo chmod a+r /etc/apk/keyrings/docker.gpg
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apk/keyrings/docker.gpg] https://download.docker.com/linux/debian "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apk/sources.list.d/docker.list > /dev/null
+
+
 sudo apt-get update
 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -36,7 +45,7 @@ kubectl version --client
 
 
 ```
-
+https://github.com/kubernetes-sigs/kind/releases/
 
 
 ```
@@ -149,8 +158,27 @@ https://phoenixnap.com/kb/kubernetes-kind
 kubectl config view --minify
 kubectl config view --raw
 
+kubectl get nodes -v=10
+```
+Sometimes, it is necessary to introduce a delay before starting the Docker engine. To implement this delay, execute the following command and add the service configuration at the beginning of the file.
+
+sudo nano /etc/systemd/system/multi-user.target.wants/docker.service
+```
+[Service]
+ExecStartPre=/bin/sleep 10
 ```
 https://stackoverflow.com/questions/61029037/how-to-connect-to-k8s-cluster-of-docker-desktop-on-another-machine
 
 https://kind.sigs.k8s.io/docs/user/ingress
 https://mjpitz.com/blog/2020/10/21/local-ingress-domains-kind/
+
+
+
+docker ps
+docker ps -a
+docker logs giada-control-plane
+
+docker network ls
+docker network inspect <network_name>
+
+kubectl get nodes -o wide
