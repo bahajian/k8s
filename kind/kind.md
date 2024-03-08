@@ -63,16 +63,7 @@ https://github.com/kubernetes-sigs/kind/releases/
 https://github.com/kubernetes-sigs/kind/releases/
 ```
 ### Linux
-```
-curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
-chmod +x ./kind
-sudo mv ./kind /usr/local/bin/kind
-sudo chmod +x /usr/local/bin/kind
-```
 
-
-
-### macOs:
 ```
 # For AMD64 / x86_64
 [ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-$(uname)-amd64
@@ -82,11 +73,6 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
 
-### Windows:
-```
-curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
-Move-Item .\kind-windows-amd64.exe c:\Kind\kind.exe
-```
 
 ---------------------
 
