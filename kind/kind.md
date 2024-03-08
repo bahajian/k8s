@@ -6,41 +6,51 @@ After installing the Docker, need to install the Kind application.
 ### Linux installation
 
 ```
-apt-get install sudo
+apt install sudo
 sudo usermod -aG sudo <username>
+```
+## 1-Set up Docker's apt repository.
 
-sudo apt-get update
-sudo apt-get install ca-certificates curl gnupg
+### Add Docker's official GPG key:
+
+```
+sudo apt update
+sudo apt install ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
 
+### Add the repository to Apt sources:
+
+```
 echo \
-  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+```
 
+## 2-Install the Docker packages.
 
+```
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
 
-
-sudo install -m 0755 -d /etc/apk/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apk/keyrings/docker.gpg
-sudo chmod a+r /etc/apk/keyrings/docker.gpg
-echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apk/keyrings/docker.gpg] https://download.docker.com/linux/debian "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apk/sources.list.d/docker.list > /dev/null
-
-
-sudo apt-get update
-
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
+## 3-Verify that the installation is successful by running the hello-world image:
+```
 sudo docker run hello-world
+```
 
+# Install kubectl binary with curl on Linux
+
+```
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
-
+```
 
 
 
@@ -50,28 +60,32 @@ https://github.com/kubernetes-sigs/kind/releases/
 
 ```
 
-#linux:
+# Install kind on Linux
+### Linux
+```
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
 chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 sudo chmod +x /usr/local/bin/kind
+```
 
 
 
-
-#macOs:
+### macOs:
+```
 [ $(uname -m) = x86_64 ]&& curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-amd64
 or:
 [ $(uname -m) = arm64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-arm64
 chmod +x ./kind
 mv ./kind /usr/local/bin/kind
 sudo chown -R /usr/local
+```
 
-
-#Windows:
+### Windows:
+```
 curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
 Move-Item .\kind-windows-amd64.exe c:\Kind\kind.exe
-
+```
 
 ---------------------
 
