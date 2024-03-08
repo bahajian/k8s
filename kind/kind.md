@@ -56,11 +56,12 @@ kubectl version --client
 
 ```
 https://github.com/kubernetes-sigs/kind/releases/
-
-
 ```
 
 # Install kind on Linux
+```
+https://github.com/kubernetes-sigs/kind/releases/
+```
 ### Linux
 ```
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
@@ -73,12 +74,12 @@ sudo chmod +x /usr/local/bin/kind
 
 ### macOs:
 ```
-[ $(uname -m) = x86_64 ]&& curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-amd64
-or:
-[ $(uname -m) = arm64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-darwin-arm64
+# For AMD64 / x86_64
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-$(uname)-amd64
+# For ARM64
+[ $(uname -m) = aarch64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-$(uname)-arm64
 chmod +x ./kind
-mv ./kind /usr/local/bin/kind
-sudo chown -R /usr/local
+sudo mv ./kind /usr/local/bin/kind
 ```
 
 ### Windows:
@@ -93,7 +94,7 @@ kind --version
 
 
 
-```
+
 :smile:
 ### 01- Create Kubernetes Cluster using Kind:
 
