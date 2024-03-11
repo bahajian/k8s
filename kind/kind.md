@@ -98,6 +98,18 @@ kind create cluster --name=<ClusterName> --config=wconfig.yaml
 kind create cluster --name=giada --config=kind-config.yaml
 ```
 
+```
+export KUBECONFIG=$(pwd)/kubeconfig.yaml
+kind get kubeconfig --name my-cluster > kubeconfig.yaml
+```
+### Sometimes when you reboot the machine, the cluster doesn't come up because other essential services need to start first. 
+### You can add a delay before starting Docker or the cluster to ensure these services are ready.
+
+
+
+
+
+
 Getting the cluster list:
 
 ```
@@ -130,8 +142,6 @@ kubectl port-forward service/test-service 5678:5678
 
 curl localhost:5678
 
-export KUBECONFIG=$(pwd)/kubeconfig.yaml
-kind get kubeconfig --name my-cluster > kubeconfig.yaml
 
 ```
 
